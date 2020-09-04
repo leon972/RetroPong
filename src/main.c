@@ -4,10 +4,12 @@
  * Use "Genesis Code: Compile" command to compile this program.
  **/
 #include <genesis.h>
+#include <resources.h>
 
 int main()
 {
     VDP_drawText("Hello Sega!!", 10,13);
+
     while(1)
     {
         VDP_waitVSync();
