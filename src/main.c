@@ -72,15 +72,15 @@ void joyHandler( u16 joy, u16 changed, u16 state)
 int main()
 {
 
+    Utils_init();
+
     Game_initData(&game);
 
     JOY_init();
     
     JOY_setEventHandler(&joyHandler);
 
-    setupVDP();
-
-    Utils_init();
+    setupVDP();    
 
     SYS_disableInts();   
 

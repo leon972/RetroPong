@@ -4,6 +4,24 @@
 extern u16 g_screen_width_tiles; //40 (320 px)
 extern u16 g_screen_height_tiles; //28 (224 px)
 
+static Level levels[MAX_LEVELS];
+
+void initLevels()
+{
+    memset(levels,0,sizeof(Level));
+    levels[0].num=1;
+    levels[0].walls[0].enabled=TRUE;
+    levels[0].walls[0].w=g_screen_width_tiles;
+    levels[0].walls[0].h=1;
+    levels[0].walls[0].x=0;
+    levels[0].walls[0].y=0;
+    levels[0].walls[1].enabled=TRUE;
+    levels[0].walls[1].w=g_screen_width_tiles;
+    levels[0].walls[1].h=1;
+    levels[0].walls[1].x=0;
+    levels[0].walls[1].y=g_screen_height_tiles-1;
+}
+
 void Player_setName(Player *player,const char* name)
 {
     if (player && name && strlen(name)<PLAYER_NAME_SIZE-1)
@@ -15,6 +33,7 @@ void Player_setName(Player *player,const char* name)
 
 void Game_initData(Game *game)
 {
+    initLevels();
     game->currentLevel=1;
     game->player1.score=game->player2.score=0;
     game->state=GAME_SPASH_CREEN;  
@@ -75,7 +94,7 @@ void Game_processInput(Game *game,u16 button)
         {
            if (Game_changeState(game,GAME_PLAYING))
            {
-               Level_drawLevel(game->currentLevel);                              
+               Level_drawLevel(&levels[game->currentLevel-1]);                              
            }           
         }
 
