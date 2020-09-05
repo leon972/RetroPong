@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "include/utils.h"
 
 //screen width in tiles
 u16 g_screen_width_tiles;
@@ -16,7 +16,4 @@ u16 Utils_centerHorizTiles(u16 len)
     return (g_screen_width_tiles-len)/2;
 }
 
-void Utils_drawTextCenter(const char *text,u16 y)
-{
-    VDP_drawText(text,(g_screen_width_tiles-strlen(text))/2,y);
-}
+
