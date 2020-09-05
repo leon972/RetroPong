@@ -16,14 +16,17 @@ extern u16 g_screen_height_tiles; //28 (224 px)
 Game game;
 
 void splashScreen()
-{
+{    
     VDP_setPalette(PAL1,splash.palette->data);
     VDP_drawImageEx(BG_B, &splash, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_USERINDEX), Utils_centerHorizTiles(16), 2, 0,DMA);   
     drawTextCenter("Press START",15);
     VDP_drawText(rom_header.copyright,0,0);
     setTextColor(PAL0,RGB24_TO_VDPCOLOR(0x888888));
     VDP_setTextPalette(PAL0);
+    
 }
+
+
 
 void out_debug_info()
 {
@@ -43,7 +46,7 @@ void out_debug_info()
 void setupVDP()
 {
    VDP_setPlanSize(64,64);
-   VDP_setTextPlane(WINDOW);
+   VDP_setTextPlane(BG_A);
 }
 
 void joyHandler( u16 joy, u16 changed, u16 state)
@@ -59,7 +62,8 @@ void joyHandler( u16 joy, u16 changed, u16 state)
 		else if (state & BUTTON_DOWN)
 		{
             Game_processInput(&game,BUTTON_RIGHT);			
-		} else if (state & BUTTON_START) {
+		} 
+        else if (state & BUTTON_START) {
             Game_processInput(&game,BUTTON_START);			
 		}
 	}
@@ -74,6 +78,8 @@ int main()
     
     JOY_setEventHandler(&joyHandler);
 
+    setupVDP();
+
     Utils_init();
 
     SYS_disableInts();   
@@ -86,6 +92,7 @@ int main()
 
     while(1)
     {
+        SPR_update();
         VDP_waitVSync();
     }
 

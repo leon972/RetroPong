@@ -22,6 +22,7 @@ typedef struct
 
 typedef struct 
 {
+    u16 currentLevel;
     Player player1;
     Player player2;
     u16 state;
