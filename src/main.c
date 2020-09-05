@@ -5,14 +5,15 @@
  **/
 #include <genesis.h>
 #include <resources.h>
+#include "boot/rom_head.c"
 #include "include/utils.h"
 #include "include/text.h"
-#include "boot/rom_head.c"
-
+#include "include/game.h"
 
 extern u16 g_screen_width_tiles; //40 (320 px)
 extern u16 g_screen_height_tiles; //28 (224 px)
 
+Game game;
 
 void splashScreen()
 {
@@ -27,14 +28,16 @@ void splashScreen()
 void out_debug_info()
 {
     //40x28
-    char a[20];
-    sprintf(a,"w=%d",g_screen_width_tiles);    
-    VDP_drawText(a, 1,0);
-    memset(a,0,20);
-    sprintf(a,"h=%d",g_screen_height_tiles);  
-    VDP_drawText(a, 10,0);  
-    VDP_drawText(rom_header.copyright,1,1);
+    char a[32];
+    // sprintf(a,"w=%d",g_screen_width_tiles);    
+    // VDP_drawText(a, 1,0);
+    // memset(a,0,20);
+    // sprintf(a,"h=%d",g_screen_height_tiles);  
+    // VDP_drawText(a, 10,0);  
+    // VDP_drawText(rom_header.copyright,1,1);
 
+    
+    VDP_drawText(game.player1.name,1,2);
 }
 
 void setupVDP()
@@ -43,14 +46,39 @@ void setupVDP()
    VDP_setTextPlane(WINDOW);
 }
 
+void joyHandler( u16 joy, u16 changed, u16 state)
+{
+	if (joy == JOY_1)
+	{
+		/*Set player velocity if left or right are pressed;
+		 *set velocity to 0 if no direction is pressed */
+		if (state & BUTTON_UP)
+		{
+			Game_processInput(&game,BUTTON_RIGHT);
+		}
+		else if (state & BUTTON_DOWN)
+		{
+            Game_processInput(&game,BUTTON_RIGHT);			
+		} else if (state & BUTTON_START) {
+            Game_processInput(&game,BUTTON_START);			
+		}
+	}
+}
+
 int main()
 {
+
+    Game_initData(&game);
+
+    JOY_init();
+    
+    JOY_setEventHandler(&joyHandler);
 
     Utils_init();
 
     SYS_disableInts();   
 
-    //out_debug_info();    
+    out_debug_info();    
 
     splashScreen();
     
@@ -60,5 +88,6 @@ int main()
     {
         VDP_waitVSync();
     }
+
     return (0);
 }
