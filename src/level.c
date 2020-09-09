@@ -3,18 +3,19 @@
 #include "include/level.h"
 #include "include/text.h"
 
+#define TILE_SET_INDEX TILES_BASE_IDX
+
 extern u16 g_screen_width_tiles; //40 (320 px)
 extern u16 g_screen_height_tiles; //28 (224 px)
 
 void Level_loadLevelAssets(Level* level)
 {
-    VDP_loadTileSet(tiles.tileset,TILES_BASE_IDX,DMA);    
+    VDP_loadTileSet(tiles.tileset,TILE_SET_INDEX,DMA);    
 }
 
 void Level_setLevelPalettes(Level* level)
 {
-    VDP_setPalette(PAL1,tiles.palette->data);
-    VDP_setPalette(PAL2,paddle1.palette->data);
+    PAL_setPalette(PAL1,tiles.palette->data);   
 }
 
 void Level_drawFloor()
@@ -41,10 +42,7 @@ void Level_drawLevel(Level *level)
    // VDP_clearPlane(BG_A,TRUE);
     Level_loadLevelAssets(level);
     Level_setLevelPalettes(level);
-    Level_drawFloor();
-    
-
-   // VDP_fillTileMapRect(BG_B,TILE_ATTR_FULL(PAL1,0,FALSE,FALSE,TILE_WALL),0,0,g_screen_width_tiles,2);
+    Level_drawFloor();  
     
     for (u16 i=0;i<MAX_WALLS;++i)
     {

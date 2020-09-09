@@ -40,7 +40,7 @@ void out_debug_info()
     // VDP_drawText(rom_header.copyright,1,1);
 
     
-    VDP_drawText(game.player1.name,1,2);
+   // VDP_drawText(game.player1.name,1,2);
 }
 
 void setupVDP()
@@ -64,6 +64,7 @@ void joyHandler( u16 joy, u16 changed, u16 state)
             Game_processInput(&game,BUTTON_RIGHT);			
 		} 
         else if (state & BUTTON_START) {
+           
             Game_processInput(&game,BUTTON_START);			
 		}
 	}

@@ -2,6 +2,7 @@
 #define __GAME_INCLUDE__
 
 #include <genesis.h>
+#include "include/spriteobj.h"
 
 //game states
 #define GAME_SPASH_CREEN 0
@@ -10,13 +11,14 @@
 #define GAME_PAUSED 3
 
 #define PLAYER_NAME_SIZE 16
-#define PADDLE_SIZE 4
+
 
 typedef struct 
 {
     u16 score;
     char name[PLAYER_NAME_SIZE];
-    u16 paddle_y; //y pos in px
+    u16 paddle_y; //y pos in px    
+    SpriteObj *sprite;
 
 } Player;
 
