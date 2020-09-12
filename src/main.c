@@ -57,17 +57,29 @@ void joyHandler( u16 joy, u16 changed, u16 state)
 		/*Set player velocity if left or right are pressed;
 		 *set velocity to 0 if no direction is pressed */
 		if (state & BUTTON_UP)
-		{             
-			Game_processInput(&game,BUTTON_UP,changed && BUTTON_UP);
+		{   
+            Game_processInput(&game,BUTTON_UP,FALSE);
 		}
 		else if (state & BUTTON_DOWN)
 		{
-            Game_processInput(&game,BUTTON_DOWN,changed && BUTTON_DOWN);			
+            Game_processInput(&game,BUTTON_DOWN,FALSE);			
 		} 
+        else if (changed & BUTTON_UP)
+        {
+             Game_processInput(&game,BUTTON_UP,TRUE);
+        }
+        else if (changed & BUTTON_DOWN)
+        {
+              Game_processInput(&game,BUTTON_DOWN,TRUE);
+        }
         else if (state & BUTTON_START) {
            
             Game_processInput(&game,BUTTON_START,FALSE);			
-		}
+		} else if (changed & BUTTON_START)        
+        {
+             Game_processInput(&game,BUTTON_START,TRUE);		
+        }
+        
 	}
 }
 

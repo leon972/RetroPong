@@ -96,6 +96,7 @@ void initGameSet(Game *game, Player *opponent)
     Sprite_setPosition(game->player2.sprite, intToFix16(PLAYER2_X), intToFix16(PLAYER_IDLE_Y));
     Sprite_update(game->player1.sprite);
     Sprite_update(game->player2.sprite);
+  
    /** fix16 vx, vy;
     if ((opponent->sprite->x - ballSpr.x) > 0)
     {
@@ -192,7 +193,7 @@ void Game_processInput(Game *game, u16 button,bool up)
     {
     case BUTTON_START:
 
-        if (game->state == GAME_SPASH_CREEN)
+        if (game->state == GAME_SPASH_CREEN && !up)
         {
             if (Game_changeState(game, GAME_PLAYING))
             {
