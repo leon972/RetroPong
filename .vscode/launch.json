@@ -7,7 +7,7 @@
 
         {
             "name": "Debug with gdb remote",
-            "request": "launch",
+            "request": "launch",           
             "type": "cppdbg",
             "program": "${workspaceRoot}\\out\\rom.out",
             "miDebuggerServerAddress": "localhost:6868",//GensKMod debug port. Change it for use another ports

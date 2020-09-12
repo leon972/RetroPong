@@ -9,6 +9,7 @@
 #include "include/utils.h"
 #include "include/text.h"
 #include "include/game.h"
+#include "include/spriteobj.h"
 
 extern u16 g_screen_width_tiles; //40 (320 px)
 extern u16 g_screen_height_tiles; //28 (224 px)
@@ -56,16 +57,16 @@ void joyHandler( u16 joy, u16 changed, u16 state)
 		/*Set player velocity if left or right are pressed;
 		 *set velocity to 0 if no direction is pressed */
 		if (state & BUTTON_UP)
-		{
-			Game_processInput(&game,BUTTON_RIGHT);
+		{             
+			Game_processInput(&game,BUTTON_UP,changed && BUTTON_UP);
 		}
 		else if (state & BUTTON_DOWN)
 		{
-            Game_processInput(&game,BUTTON_RIGHT);			
+            Game_processInput(&game,BUTTON_DOWN,changed && BUTTON_DOWN);			
 		} 
         else if (state & BUTTON_START) {
            
-            Game_processInput(&game,BUTTON_START);			
+            Game_processInput(&game,BUTTON_START,FALSE);			
 		}
 	}
 }
@@ -75,6 +76,10 @@ int main()
 
     Utils_init();
 
+    //create levels structure
+    //load sprites paddles and ball
+    //init sprite engine
+    //set player names
     Game_initData(&game);
 
     JOY_init();
@@ -89,10 +94,12 @@ int main()
 
     splashScreen();
     
-    SYS_enableInts();
+    SYS_enableInts();   
 
     while(1)
-    {
+    {       
+      
+        Game_update(&game);
         SPR_update();
         VDP_waitVSync();
     }

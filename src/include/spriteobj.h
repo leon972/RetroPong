@@ -28,7 +28,7 @@
  /**
   * Update the sprite position
   */ 
- void Sprite_updatePos(SpriteObj *spr);
+ void Sprite_updatePosByVelocity(SpriteObj *spr);
 
  /**
   * Set the sprite velocity
@@ -36,9 +36,33 @@
  void Sprite_setVelocity(SpriteObj *spr,fix16 vx,fix16 vy);
 
  /**
+  * Set the x component of velocity
+  **/
+ void Sprite_setVelocityX(SpriteObj *spr,fix16 vx);
+
+  /**
+  * Set the x component of velocity
+  **/
+ void Sprite_setVelocityY(SpriteObj *spr,fix16 vy);
+
+ /**
   * Set the sprite position
   */
- void  Sprite_setPosition(SpriteObj *spr,fix16 x,fix16 y);
+ void Sprite_setPosition(SpriteObj *spr,fix16 x,fix16 y);
+
+ void Sprite_incXPos(SpriteObj *spr,fix16 deltaX);
+
+ void Sprite_incYPos(SpriteObj *spr,fix16 deltaY);
+
+ void Sprite_setXPos(SpriteObj *spr,fix16 x);
+
+ void Sprite_setYPos(SpriteObj *spr,fix16 y);
+
+ /**
+  * Update the position of the wrapped Sprite
+  * Call this function after Sprite_updatePosByVelocity or changing sprite position directly
+  * */
+ void Sprite_update(SpriteObj *spr);
 
 #endif
 

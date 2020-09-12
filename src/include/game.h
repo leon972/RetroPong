@@ -13,12 +13,14 @@
 #define PLAYER_NAME_SIZE 16
 
 
+
 typedef struct 
 {
     u16 score;
     char name[PLAYER_NAME_SIZE];
     u16 paddle_y; //y pos in px    
     SpriteObj *sprite;
+    fix16 paddleVelocity;
 
 } Player;
 
@@ -33,7 +35,8 @@ typedef struct
 
 void Game_initData(Game *game);
 bool Game_changeState(Game *game,u16 nextState);
-void Game_processInput(Game *game,u16 button);
+void Game_processInput(Game *game,u16 button,bool up);
 void Player_setName(Player *player,const char* name);
+void Game_update(Game* game);
 
 #endif
